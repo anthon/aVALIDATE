@@ -6,7 +6,7 @@
   ],
   "description": "A form validation plugin thingy.",
   "main": [
-    "jquery.aVALIDATE.js",
+    "jquery.aVALIDATE.js"
   ],
   "license": "aLICENCE",
   "homepage": "astromzimmer.com",
