@@ -27,7 +27,7 @@
 		$form = null
 		
 		checkInput = ($form,$required)->
-			$field = if $required.is('input') then $required else $required.find('input')
+			$field = if $required.is('input,textarea') then $required else $required.find('input,textarea')
 			
 			$field.on 'keyup change input propertychange', (e)->
 				# Block submit on enter

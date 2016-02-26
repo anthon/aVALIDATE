@@ -14,7 +14,7 @@
       $form = null;
       checkInput = function($form, $required) {
         var $field;
-        $field = $required.is('input') ? $required : $required.find('input');
+        $field = $required.is('input,textarea') ? $required : $required.find('input,textarea');
         return $field.on('keyup change input propertychange', function(e) {
           if (e.keyCode === 13) {
             e.preventDefault();
