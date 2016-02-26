@@ -1,0 +1,23 @@
+{
+  "name": "aVALIDATE",
+  "version": "0.1.0",
+  "authors": [
+    "Anthon Astrom <anthon@astromzimmer.com>"
+  ],
+  "description": "A form validation plugin thingy.",
+  "main": [
+    "jquery.aVALIDATE.js",
+  ],
+  "license": "aLICENCE",
+  "homepage": "astromzimmer.com",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "src"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.3"
+  }
+}
