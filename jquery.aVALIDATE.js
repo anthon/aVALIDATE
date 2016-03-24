@@ -22,6 +22,7 @@
             e.preventDefault();
           }
           passed = false;
+          console.log($field);
           switch ($field.attr('type')) {
             case 'file':
               files = $field[0].files;

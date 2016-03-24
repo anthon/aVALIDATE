@@ -35,6 +35,7 @@
 				if e.keyCode is 13 then e.preventDefault()
 				passed = false
 				# Check type
+				console.log $field
 				switch $field.attr('type')
 					when 'file'
 						files = $field[0].files
