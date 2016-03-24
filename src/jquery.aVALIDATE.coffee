@@ -52,6 +52,8 @@
 							if max_size_mb
 								passed = false
 								max_size_bytes = max_size_mb * 1024 * 1024 # MB to bytes
+								console.log max_size_bytes
+								console.log file.size
 								if max_size_bytes > file.size
 									passed = true
 						if passed then $required.addClass('aVALIDATE_passed')
