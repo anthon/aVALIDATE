@@ -29,6 +29,7 @@
               for (i = 0, len = files.length; i < len; i++) {
                 file = files[i];
                 console.log(file);
+                passed = false;
                 if (accept) {
                   if (accept.indexOf('/')) {
                     if (accept === file.type) {
