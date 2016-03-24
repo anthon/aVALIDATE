@@ -4,10 +4,10 @@
 
 		$styles = $('
 		    <style id="aVALIDATE_styles">
-		    	[required] {
+		    	.required {
 		    		position: relative;
 		    	}
-		        [required]:after {
+		        .required:after {
 		        	content: " \\002a";
 					color: #F00;
 		        }
@@ -18,7 +18,7 @@
 	    ')
 		
 		defaults =
-			requiredSelector: '.required,[required="required"]'
+			requiredSelector: '.required'
 			emailName: 'email'
 		settings = $.extend({}, defaults, options)
 		
@@ -32,10 +32,10 @@
 			$field.on 'keyup change input propertychange', (e)->
 				# Block submit on enter
 				if e.keyCode is 13 then e.preventDefault()
+				passed = false
 				# Check type
 				switch $field.attr('type')
 					when 'file'
-						passed = false
 						files = $field[0].files
 						accept = $field.attr 'accept'
 						max_size_mb = parseInt $field.data('max-size')
@@ -56,14 +56,17 @@
 								console.log file.size
 								if max_size_bytes > file.size
 									passed = true
-						if passed then $required.addClass('aVALIDATE_passed')
 					else
 						if $field.val().length >= 2
-							$required.addClass('aVALIDATE_passed')
+							passed = true
 							if $field.is('[name='+settings.emailName+']') and not runReg $field.val()
-								$required.removeClass('aVALIDATE_passed')
+								passed = false
 						else
-							$required.removeClass('aVALIDATE_passed')
+							passed = false
+					if passed
+						$required.addClass('aVALIDATE_passed')
+					else
+						$required.removeClass('aVALIDATE_passed')
 				checkValidation()
 
 		runReg = (string)->

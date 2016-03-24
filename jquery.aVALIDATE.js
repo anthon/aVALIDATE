@@ -3,9 +3,9 @@
   (function($, window, undefined_) {
     return $.fn.validate = function(options) {
       var $form, $styles, checkInput, checkValidation, defaults, email_pattern, required_length, runReg, settings;
-      $styles = $('<style id="aVALIDATE_styles"> [required] { position: relative; } [required]:after { content: " \\002a"; color: #F00; } .aVALIDATE_passed:after { color: #0F0; } </style>');
+      $styles = $('<style id="aVALIDATE_styles"> .required { position: relative; } .required:after { content: " \\002a"; color: #F00; } .aVALIDATE_passed:after { color: #0F0; } </style>');
       defaults = {
-        requiredSelector: '.required,[required="required"]',
+        requiredSelector: '.required',
         emailName: 'email'
       };
       settings = $.extend({}, defaults, options);
@@ -53,6 +53,8 @@
               }
               if (passed) {
                 $required.addClass('aVALIDATE_passed');
+              } else {
+                $required.removeClass('aVALIDATE_passed');
               }
               break;
             default:
