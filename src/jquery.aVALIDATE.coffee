@@ -38,7 +38,7 @@
 						passed = false
 						files = $field[0].files
 						accept = $field.attr 'accept'
-						max_size = $field.data('max-size') * 1024 * 1024 # MB to bytes
+						max_size_mb = parseInt $field.data('max-size')
 						for file in files
 							console.log file
 							if accept
@@ -49,9 +49,10 @@
 									extension = '.'+file.name.split('.').pop()
 									if accept.indexOf extension
 										passed = true
-							if max_size
+							if max_size_mb
 								passed = false
-								if parseInt(max_size) > file.size
+								max_size_bytes = max-size_mb * 1024 * 1024 # MB to bytes
+								if max_size_bytes > file.size
 									passed = true
 						if passed then $required.addClass('aVALIDATE_passed')
 					else

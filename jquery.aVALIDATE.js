@@ -16,7 +16,7 @@
         var $field;
         $field = $required.is('input,textarea') ? $required : $required.find('input,textarea');
         return $field.on('keyup change input propertychange', function(e) {
-          var accept, extension, file, files, i, len, max_size, passed;
+          var accept, extension, file, files, i, len, max_size_bytes, max_size_mb, passed;
           if (e.keyCode === 13) {
             e.preventDefault();
           }
@@ -25,7 +25,7 @@
               passed = false;
               files = $field[0].files;
               accept = $field.attr('accept');
-              max_size = $field.data('max-size') * 1024 * 1024;
+              max_size_mb = parseInt($field.data('max-size'));
               for (i = 0, len = files.length; i < len; i++) {
                 file = files[i];
                 console.log(file);
@@ -41,9 +41,10 @@
                     }
                   }
                 }
-                if (max_size) {
+                if (max_size_mb) {
                   passed = false;
-                  if (parseInt(max_size) > file.size) {
+                  max_size_bytes = max - size_mb * 1024 * 1024;
+                  if (max_size_bytes > file.size) {
                     passed = true;
                   }
                 }
