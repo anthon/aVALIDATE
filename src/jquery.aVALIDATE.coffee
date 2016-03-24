@@ -39,6 +39,7 @@
 				switch $field.attr('type')
 					when 'file'
 						files = $field[0].files
+						console.log files
 						accept = $field.attr 'accept'
 						max_size_mb = parseInt $field.data('max-size')
 						for file in files

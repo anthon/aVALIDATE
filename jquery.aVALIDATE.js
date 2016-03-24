@@ -26,6 +26,7 @@
           switch ($field.attr('type')) {
             case 'file':
               files = $field[0].files;
+              console.log(files);
               accept = $field.attr('accept');
               max_size_mb = parseInt($field.data('max-size'));
               for (i = 0, len = files.length; i < len; i++) {
