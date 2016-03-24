@@ -12,8 +12,9 @@
       email_pattern = /^.+@.+[.].{2,}$/i;
       required_length = 0;
       $form = null;
-      checkInput = function($form, $required) {
-        var $field;
+      checkInput = function($form, $req) {
+        var $field, $required;
+        $required = $req;
         $field = $required.is('input,textarea') ? $required : $required.find('input,textarea');
         return $field.on('keyup change input propertychange', function(e) {
           var accept, extension, file, files, i, len, max_size_bytes, max_size_mb, passed;
@@ -48,9 +49,9 @@
                   console.log(max_size_bytes);
                   console.log(file.size);
                   if (max_size_bytes > file.size) {
-                    console.log('Passed!');
                     passed = true;
                   }
+                  console.log(passed);
                 }
               }
               break;

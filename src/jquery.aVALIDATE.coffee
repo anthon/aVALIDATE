@@ -26,7 +26,8 @@
 		required_length = 0
 		$form = null
 		
-		checkInput = ($form,$required)->
+		checkInput = ($form,$req)->
+			$required = $req
 			$field = if $required.is('input,textarea') then $required else $required.find('input,textarea')
 			
 			$field.on 'keyup change input propertychange', (e)->
@@ -56,8 +57,8 @@
 								console.log max_size_bytes
 								console.log file.size
 								if max_size_bytes > file.size
-									console.log 'Passed!'
 									passed = true
+								console.log passed
 					else
 						if $field.val().length >= 2
 							passed = true
