@@ -29,8 +29,8 @@
               max_size_mb = parseInt($field.data('max-size'));
               for (i = 0, len = files.length; i < len; i++) {
                 file = files[i];
-                passed = false;
                 if (accept) {
+                  passed = false;
                   if (accept.indexOf('/') !== -1) {
                     if (accept === file.type) {
                       passed = true;
@@ -38,6 +38,7 @@
                   } else {
                     extension = '.' + file.name.split('.').pop();
                     if (accept.indexOf(extension) !== -1) {
+                      console.log('Passed?');
                       passed = true;
                     }
                   }

@@ -43,14 +43,18 @@
 						max_size_mb = parseInt $field.data('max-size')
 						for file in files
 							# console.log file
-							passed = false
 							if accept
+								passed = false
 								if accept.indexOf('/') isnt -1
 									if accept is file.type
 										passed = true
 								else
 									extension = '.'+file.name.split('.').pop()
+									# console.log accept
+									# console.log extension
+									# console.log accept.indexOf(extension)
 									if accept.indexOf(extension) isnt -1
+										console.log 'Passed?'
 										passed = true
 							if max_size_mb
 								passed = false
