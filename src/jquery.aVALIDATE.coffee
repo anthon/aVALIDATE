@@ -4,10 +4,10 @@
 
 		$styles = $('
 		    <style id="aVALIDATE_styles">
-		    	.required {
+		    	[required] {
 		    		position: relative;
 		    	}
-		        .required:after {
+		        [required]:after {
 		        	content: " \\002a";
 					color: #F00;
 		        }
@@ -18,11 +18,11 @@
 	    ')
 		
 		defaults =
-			requiredClass: 'required'
+			requiredSelector: '.required,[required="required"]'
 			emailName: 'email'
 		settings = $.extend({}, defaults, options)
 		
-		pattern = /^.+@.+[.].{2,}$/i
+		email_pattern = /^.+@.+[.].{2,}$/i
 		required_length = 0
 		$form = null
 		
@@ -32,40 +32,36 @@
 			$field.on 'keyup change input propertychange', (e)->
 				# Block submit on enter
 				if e.keyCode is 13 then e.preventDefault()
-				if $field.val().length >= 2
-					$required.addClass('aVALIDATE_passed')
-					if $field.is('[name='+settings.emailName+']') and not runReg $field.val()
-						$required.removeClass('aVALIDATE_passed')
-				else
-					$required.removeClass('aVALIDATE_passed')
+				# Check type
+				switch $field.attr('type')
+					when 'file'
+						files = $field[0].files
+						accept = $field.attr 'accept'
+						max_size = $field.data('max-size') * 1024 * 1024 # MB to bytes
+						for file in files
+							console.log file
+							if accept
+								if accept.indexOf '/'
+									if accept is file.type
+										$required.addClass('aVALIDATE_passed')
+								else
+									extension = '.'+file.name.split('.').pop()
+									if accept.indexOf extension
+										$required.addClass('aVALIDATE_passed')
+							if max_size and parseInt(max_size) > file.size
+								$required.addClass('aVALIDATE_passed')
+
+					else
+						if $field.val().length >= 2
+							$required.addClass('aVALIDATE_passed')
+							if $field.is('[name='+settings.emailName+']') and not runReg $field.val()
+								$required.removeClass('aVALIDATE_passed')
+						else
+							$required.removeClass('aVALIDATE_passed')
 				checkValidation()
 
-		checkEmail = ()->
-			$email = $form.find '[name='+settings.emailName+']'
-			
-			$form.append '<div id="emailInfo" class="info">&#8226</div>'
-			
-			$info = $("#emailInfo")
-			position = $email.position()
-			$info.css
-				top: position.top + 4
-				left: position.left + $email.width() + 24
-				position: 'absolute'
-				color: '#FF0000'
-			
-			$email.keyup (e)->
-				if e.keyCode is 13 then e.preventDefault()
-				clr = '#FF0000'
-				if runReg $email.val()
-					$email.addClass('aVALIDATE_passed')
-					checkValidation()
-				else
-					$email.removeClass('aVALIDATE_passed')
-				$info.css
-					color: clr
-
 		runReg = (string)->
-			pattern.test string
+			email_pattern.test string
 		
 		checkValidation = ()->
 			$submit = $form.find(":submit")
@@ -81,10 +77,10 @@
 
 			$form = $(this)
 			
-			required_length = $form.find('.'+settings.requiredClass).length
+			required_length = $form.find(settings.requiredSelector).length
 			checkValidation()
 			
-			$form.find(".required").each ()->
+			$form.find(settings.requiredSelector).each ()->
 				$this = $(this)
 				checkInput($form,$this)
 
