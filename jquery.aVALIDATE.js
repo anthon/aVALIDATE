@@ -20,9 +20,9 @@
           if (e.keyCode === 13) {
             e.preventDefault();
           }
+          passed = false;
           switch ($field.attr('type')) {
             case 'file':
-              passed = false;
               files = $field[0].files;
               accept = $field.attr('accept');
               max_size_mb = parseInt($field.data('max-size'));
@@ -51,21 +51,21 @@
                   }
                 }
               }
-              if (passed) {
-                $required.addClass('aVALIDATE_passed');
-              } else {
-                $required.removeClass('aVALIDATE_passed');
-              }
               break;
             default:
               if ($field.val().length >= 2) {
-                $required.addClass('aVALIDATE_passed');
+                passed = true;
                 if ($field.is('[name=' + settings.emailName + ']') && !runReg($field.val())) {
-                  $required.removeClass('aVALIDATE_passed');
+                  passed = false;
                 }
               } else {
-                $required.removeClass('aVALIDATE_passed');
+                passed = false;
               }
+          }
+          if (passed) {
+            $required.addClass('aVALIDATE_passed');
+          } else {
+            $required.removeClass('aVALIDATE_passed');
           }
           return checkValidation();
         });

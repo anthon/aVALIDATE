@@ -63,10 +63,10 @@
 								passed = false
 						else
 							passed = false
-					if passed
-						$required.addClass('aVALIDATE_passed')
-					else
-						$required.removeClass('aVALIDATE_passed')
+				if passed
+					$required.addClass('aVALIDATE_passed')
+				else
+					$required.removeClass('aVALIDATE_passed')
 				checkValidation()
 
 		runReg = (string)->
