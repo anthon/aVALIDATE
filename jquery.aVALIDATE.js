@@ -25,21 +25,19 @@
           switch ($field.attr('type')) {
             case 'file':
               files = $field[0].files;
-              console.log(files);
               accept = $field.attr('accept');
               max_size_mb = parseInt($field.data('max-size'));
               for (i = 0, len = files.length; i < len; i++) {
                 file = files[i];
-                console.log(file);
                 passed = false;
                 if (accept) {
-                  if (accept.indexOf('/')) {
+                  if (accept.indexOf('/') !== -1) {
                     if (accept === file.type) {
                       passed = true;
                     }
                   } else {
                     extension = '.' + file.name.split('.').pop();
-                    if (accept.indexOf(extension)) {
+                    if (accept.indexOf(extension) !== -1) {
                       passed = true;
                     }
                   }
@@ -47,12 +45,9 @@
                 if (max_size_mb) {
                   passed = false;
                   max_size_bytes = max_size_mb * 1024 * 1024;
-                  console.log(max_size_bytes);
-                  console.log(file.size);
                   if (max_size_bytes > file.size) {
                     passed = true;
                   }
-                  console.log(passed);
                 }
               }
               break;

@@ -38,28 +38,28 @@
 				switch $field.attr('type')
 					when 'file'
 						files = $field[0].files
-						console.log files
+						# console.log files
 						accept = $field.attr 'accept'
 						max_size_mb = parseInt $field.data('max-size')
 						for file in files
-							console.log file
+							# console.log file
 							passed = false
 							if accept
-								if accept.indexOf '/'
+								if accept.indexOf('/') isnt -1
 									if accept is file.type
 										passed = true
 								else
 									extension = '.'+file.name.split('.').pop()
-									if accept.indexOf extension
+									if accept.indexOf(extension) isnt -1
 										passed = true
 							if max_size_mb
 								passed = false
 								max_size_bytes = max_size_mb * 1024 * 1024 # MB to bytes
-								console.log max_size_bytes
-								console.log file.size
+								# console.log max_size_bytes
+								# console.log file.size
 								if max_size_bytes > file.size
 									passed = true
-								console.log passed
+								# console.log passed
 					else
 						if $field.val().length >= 2
 							passed = true
