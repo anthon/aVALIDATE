@@ -15,14 +15,13 @@
       checkInput = function($form, $req) {
         var $field, $required;
         $required = $req;
-        $field = $required.is('input,textarea') ? $required : $required.find('input,textarea');
+        $field = $required.is('input,textarea') ? $required : $required.find('input:not([type="hidden"]),textarea');
         return $field.on('keyup change input propertychange', function(e) {
           var accept, extension, file, files, i, len, max_size_bytes, max_size_mb, passed;
           if (e.keyCode === 13) {
             e.preventDefault();
           }
           passed = false;
-          console.log($field);
           switch ($field.attr('type')) {
             case 'file':
               files = $field[0].files;

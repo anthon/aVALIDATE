@@ -28,15 +28,13 @@
 		
 		checkInput = ($form,$req)->
 			$required = $req
-			$field = if $required.is('input,textarea') then $required else $required.find('input,textarea')
+			$field = if $required.is('input,textarea') then $required else $required.find('input:not([type="hidden"]),textarea')
 			
 			$field.on 'keyup change input propertychange', (e)->
 				# Block submit on enter
 				if e.keyCode is 13 then e.preventDefault()
 				passed = false
 				# Check type
-				console.log $field
-				console.log $field.attr('type')
 				switch $field.attr('type')
 					when 'file'
 						files = $field[0].files
