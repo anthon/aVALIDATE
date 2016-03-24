@@ -16,12 +16,13 @@
         var $field;
         $field = $required.is('input,textarea') ? $required : $required.find('input,textarea');
         return $field.on('keyup change input propertychange', function(e) {
-          var accept, extension, file, files, i, len, max_size;
+          var accept, extension, file, files, i, len, max_size, passed;
           if (e.keyCode === 13) {
             e.preventDefault();
           }
           switch ($field.attr('type')) {
             case 'file':
+              passed = false;
               files = $field[0].files;
               accept = $field.attr('accept');
               max_size = $field.data('max-size') * 1024 * 1024;
@@ -31,18 +32,24 @@
                 if (accept) {
                   if (accept.indexOf('/')) {
                     if (accept === file.type) {
-                      $required.addClass('aVALIDATE_passed');
+                      passed = true;
                     }
                   } else {
                     extension = '.' + file.name.split('.').pop();
                     if (accept.indexOf(extension)) {
-                      $required.addClass('aVALIDATE_passed');
+                      passed = true;
                     }
                   }
                 }
-                if (max_size && parseInt(max_size) > file.size) {
-                  $required.addClass('aVALIDATE_passed');
+                if (max_size) {
+                  passed = false;
+                  if (parseInt(max_size) > file.size) {
+                    passed = true;
+                  }
                 }
+              }
+              if (passed) {
+                $required.addClass('aVALIDATE_passed');
               }
               break;
             default:

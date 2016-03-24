@@ -35,6 +35,7 @@
 				# Check type
 				switch $field.attr('type')
 					when 'file'
+						passed = false
 						files = $field[0].files
 						accept = $field.attr 'accept'
 						max_size = $field.data('max-size') * 1024 * 1024 # MB to bytes
@@ -43,14 +44,16 @@
 							if accept
 								if accept.indexOf '/'
 									if accept is file.type
-										$required.addClass('aVALIDATE_passed')
+										passed = true
 								else
 									extension = '.'+file.name.split('.').pop()
 									if accept.indexOf extension
-										$required.addClass('aVALIDATE_passed')
-							if max_size and parseInt(max_size) > file.size
-								$required.addClass('aVALIDATE_passed')
-
+										passed = true
+							if max_size
+								passed = false
+								if parseInt(max_size) > file.size
+									passed = true
+						if passed then $required.addClass('aVALIDATE_passed')
 					else
 						if $field.val().length >= 2
 							$required.addClass('aVALIDATE_passed')
