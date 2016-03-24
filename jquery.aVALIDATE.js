@@ -43,7 +43,7 @@
                 }
                 if (max_size_mb) {
                   passed = false;
-                  max_size_bytes = max - size_mb * 1024 * 1024;
+                  max_size_bytes = max_size_mb * 1024 * 1024;
                   if (max_size_bytes > file.size) {
                     passed = true;
                   }
