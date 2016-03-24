@@ -36,6 +36,7 @@
 				passed = false
 				# Check type
 				console.log $field
+				console.log $field.attr('type')
 				switch $field.attr('type')
 					when 'file'
 						files = $field[0].files
