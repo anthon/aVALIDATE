@@ -48,6 +48,7 @@
                   console.log(max_size_bytes);
                   console.log(file.size);
                   if (max_size_bytes > file.size) {
+                    console.log('Passed!');
                     passed = true;
                   }
                 }
