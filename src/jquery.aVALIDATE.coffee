@@ -87,7 +87,7 @@
 					opacity: 1
 			else
 				$submit.attr('disabled','disabled').css
-					opacity: .24
+					opacity: .72
 
 		@each ->
 			if $('style#aVALIDATE_styles').length is 0 then $('head').append($styles)

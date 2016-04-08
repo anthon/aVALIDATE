@@ -82,7 +82,7 @@
           });
         } else {
           return $submit.attr('disabled', 'disabled').css({
-            opacity: .24
+            opacity: .72
           });
         }
       };
